@@ -53,7 +53,9 @@ module RSpec
         end
 
         def close(_notification)
-          output.write @output_hash.to_json
+          output.rewind
+          pos = output.write @output_hash.to_json
+          output.truncate(pos)
         end
 
         def dump_profile(profile)
